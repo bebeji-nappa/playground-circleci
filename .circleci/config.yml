@@ -30,7 +30,9 @@ jobs:
       - checkout
       - run:
           name: "Test"
-          command: export GIT_COMMIT_MSG=git log -1 HEAD --pretty=format:%s
+          command: |
+            MSG=$(git log -1 HEAD --pretty=format:%s)
+            export ${GIT_COMMIT_MSG}='${MSG}'
       - when:
           condition:
             matches:
