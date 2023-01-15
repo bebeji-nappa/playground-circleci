@@ -28,9 +28,10 @@ jobs:
       - checkout
       - when:
           condition:
-            matches:
-              pattern: "^.*[skip hello2].*$"
-              value: "[skip hello2] fix"
+            not:
+              matches:
+                pattern: "^.*[skip hello2].*$"
+                value: "[skip hello2] fix"
           steps:
             - run:
                 name: "Skip hello2"
@@ -49,9 +50,10 @@ jobs:
       - checkout
       - when:
           condition:
-            matches:
-              pattern: "^.*[skip hello3].*$"
-              value: "[skip hello2] fix"
+            not:
+              matches:
+                pattern: "^.*[skip hello3].*$"
+                value: "[skip hello2] fix"
           steps:
             - run:
                 name: "Skip hello3"
