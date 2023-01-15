@@ -32,7 +32,7 @@ jobs:
           name: "Test"
           command: |
             MSG=$(git log -1 HEAD --pretty=format:%s)
-            export ${GIT_COMMIT_MSG}='${MSG}'
+            export GIT_COMMIT_MSG="${MSG}"
       - when:
           condition:
             matches:
