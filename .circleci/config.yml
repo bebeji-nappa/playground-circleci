@@ -24,13 +24,15 @@ jobs:
       - image: cimg/base:stable
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    environment:
+      GIT_COMMIT_MSG: git log -1 HEAD --pretty=format:%s
     steps:
       - checkout
       - when:
           condition:
             matches:
               pattern: /^.*\[skip hello2\].*$/
-              value: git log -1 HEAD --pretty=format:%s
+              value: $GIT_COMMIT_MSG
           steps:
             - run:
                 name: "Skip hello2"
