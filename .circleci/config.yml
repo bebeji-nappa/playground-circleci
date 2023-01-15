@@ -29,8 +29,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: echo $GIT_COMMIT_MSG
+          name: "Test"
+          command: $GIT_COMMIT_MSG
       - when:
           condition:
             matches:
