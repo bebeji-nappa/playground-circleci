@@ -34,8 +34,11 @@ jobs:
                 value: << pipeline.git.branch >>
           steps:
             - run:
-                name: "Say hello"
-                command: "echo Hello, World!"
+                name: "Skip hello2"
+                command: "circleci-agent step halt"
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
   say-hello3:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
@@ -53,8 +56,11 @@ jobs:
                 value: << pipeline.git.branch >>
           steps:
             - run:
-                name: "Say hello"
-                command: "echo Hello, World!"
+                name: "Skip hello3"
+                command: "circleci-agent step halt"
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
