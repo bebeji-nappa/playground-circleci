@@ -30,7 +30,7 @@ jobs:
           condition:
             matches:
               pattern: /^.*\[skip hello2\].*$/
-              value: << $(git log -1 HEAD --pretty=format:%s) >>
+              value: $(git log -1 HEAD --pretty=format:%s)
           steps:
             - run:
                 name: "Skip hello2"
@@ -51,7 +51,7 @@ jobs:
           condition:
             matches:
               pattern: /^.*\[skip hello3\].*$/
-              value: << $(git log -1 HEAD --pretty=format:%s) >>
+              value: $(git log -1 HEAD --pretty=format:%s)
           steps:
             - run:
                 name: "Skip hello3"
