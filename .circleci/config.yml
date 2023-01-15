@@ -30,7 +30,7 @@ jobs:
           condition:
             not:
               matches:
-                pattern: "^.*[skip hello2].*$"
+                pattern: /^.*[skip hello2].*$/
                 value: "[skip hello2] fix"
           steps:
             - run:
