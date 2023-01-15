@@ -24,19 +24,8 @@ jobs:
       - image: cimg/base:stable
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    environment:
-      GIT_COMMIT_MSG: $(git log -1 HEAD --pretty=format:%s)
     steps:
       - checkout
-      - when:
-          condition:
-            matches:
-              pattern: /^.*\[skip hello2\].*$/
-              value: $GIT_COMMIT_MSG
-          steps:
-            - run:
-                name: "Skip hello2"
-                command: "circleci-agent step halt"
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
@@ -49,15 +38,18 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
-      - when:
-          condition:
-            matches:
-              pattern: /^.*\[skip hello3\].*$/
-              value: git log -1 HEAD --pretty=format:%s
-          steps:
-            - run:
-                name: "Skip hello3"
-                command: "circleci-agent step halt"
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
+  say-hello4:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
@@ -74,4 +66,10 @@ workflows:
       - say-hello3:
           requires:
             - say-hello
+      - hold:
+          type: approval
+          requires:
+           - say-hello2
+           - say-hello3
+      - say-hello4
 
