@@ -17,48 +17,6 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-  say-hello2-as-needed:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-          name: "分岐"
-          command: |
-            COMMIT_MESSAGE=$(git log -1 HEAD --pretty=format:%s)
-            TRIGGER_MATCH_PATTERN="^.*\[hello2\].*$"
-            if [[ ${COMMIT_MESSAGE} =~ ${TRIGGER_MATCH_PATTERN} ]]; then
-              echo "Continue to run frontend_test, as the commit message contains '[skip frontend-test]'."
-              circleci-agent step halt
-            else
-              echo "Since the commit message does not include '[skip frontend-test]'"
-            fi
-      - say-hello2
-  say-hello3-as-needed:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-          name: "分岐"
-          command: |
-            COMMIT_MESSAGE=$(git log -1 HEAD --pretty=format:%s)
-            TRIGGER_MATCH_PATTERN="^.*\[hello3\].*$"
-            if [[ ${COMMIT_MESSAGE} =~ ${TRIGGER_MATCH_PATTERN} ]]; then
-              echo "Continue to run frontend_test, as the commit message contains '[skip frontend-test]'."
-              circleci-agent step halt
-            else
-              echo "Since the commit message does not include '[skip frontend-test]'"
-            fi
-      - say-hello3
   say-hello2:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
@@ -83,6 +41,48 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+  say-hello2-as-needed:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: "分岐"
+          command: |
+            COMMIT_MESSAGE=$(git log -1 HEAD --pretty=format:%s)
+            TRIGGER_MATCH_PATTERN="^.*\[skip hello2\].*$"
+            if [[ ${COMMIT_MESSAGE} =~ ${TRIGGER_MATCH_PATTERN} ]]; then
+              echo "Skip hello2"
+              circleci-agent step halt
+            else
+              echo "Running"
+            fi
+      - say-hello2
+  say-hello3-as-needed:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: "分岐"
+          command: |
+            COMMIT_MESSAGE=$(git log -1 HEAD --pretty=format:%s)
+            TRIGGER_MATCH_PATTERN="^.*\[skip hello3\].*$"
+            if [[ ${COMMIT_MESSAGE} =~ ${TRIGGER_MATCH_PATTERN} ]]; then
+              echo "Skip hello3"
+              circleci-agent step halt
+            else
+              echo "Running"
+            fi
+      - say-hello3
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
