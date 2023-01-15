@@ -26,9 +26,16 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - when:
+          condition:
+            not:
+              matches:
+                pattern: "^.*[skip hello2].*$"
+                value: << pipeline.git.branch >>
+          steps:
+            - run:
+                name: "Say hello"
+                command: "echo Hello, World!"
   say-hello3:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
@@ -51,15 +58,7 @@ workflows:
       - say-hello2:
           requires:
             - say-hello
-          filters:
-            branches:
-              ignore:
-                - /^.*[skip hello2].*$/
       - say-hello3:
           requires:
             - say-hello
-          filters:
-            branches:
-              ignore:
-                - /^.*[skip hello3].*$/
 
