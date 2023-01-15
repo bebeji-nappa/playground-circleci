@@ -30,7 +30,7 @@ jobs:
           condition:
             matches:
               pattern: "^.*[skip hello2].*$"
-              value: $(git log -1 HEAD --pretty=format:%s)
+              value: "[skip hello2] fix"
           steps:
             - run:
                 name: "Skip hello2"
