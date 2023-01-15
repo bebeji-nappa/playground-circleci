@@ -28,10 +28,9 @@ jobs:
       - checkout
       - when:
           condition:
-            not:
-              matches:
-                pattern: "^.*[skip hello2].*$"
-                value: << pipeline.git.branch >>
+            matches:
+              pattern: "^.*[skip hello2].*$"
+              value: << pipeline.git.branch >>
           steps:
             - run:
                 name: "Skip hello2"
@@ -50,10 +49,9 @@ jobs:
       - checkout
       - when:
           condition:
-            not:
-              matches:
-                pattern: "^.*[skip hello3].*$"
-                value: << pipeline.git.branch >>
+            matches:
+              pattern: "^.*[skip hello3].*$"
+              value: << pipeline.git.branch >>
           steps:
             - run:
                 name: "Skip hello3"
