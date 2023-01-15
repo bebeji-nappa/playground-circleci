@@ -71,5 +71,8 @@ workflows:
           requires:
            - say-hello2
            - say-hello3
-      - say-hello4
+      - say-hello4:
+          requires:
+            - hold
+      
 
