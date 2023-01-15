@@ -54,12 +54,12 @@ workflows:
           filters:
             branches:
               ignore:
-                - /^.*\[skip hello2\].*$/
+                - /^.*[skip hello2].*$/
       - say-hello3:
           requires:
             - say-hello
           filters:
             branches:
               ignore:
-                - /^.*\[skip hello3\].*$/
+                - /^.*[skip hello3].*$/
 
