@@ -45,9 +45,16 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - when:
+          condition:
+            not:
+              matches:
+                pattern: "^.*[skip hello2].*$"
+                value: << pipeline.git.branch >>
+          steps:
+            - run:
+                name: "Say hello"
+                command: "echo Hello, World!"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
